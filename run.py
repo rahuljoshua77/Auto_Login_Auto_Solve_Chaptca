@@ -1,10 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from python3_anticaptcha import ImageToTextTask
 from pytesseract import image_to_string
 import pytesseract
 from time import sleep
-from selenium.webdriver.chrome.options import Options
 import re
 from PIL import Image
 from io import BytesIO
