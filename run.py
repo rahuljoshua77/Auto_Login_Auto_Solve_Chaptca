@@ -33,7 +33,7 @@ def cek_ip():
     print("[*] 4. Genap 2020/2021")
     print("[*] 5. Ganjil 2020/2021")
     print("[*] 6. Genap 2021/2022")
-    pilihan = int(input("[*] Masukin pilihan: "))
+    pilihan = int(input("[*] Masukin pilihan (1-6): "))
     print("[*] Trying to Get  your IP")
     #click_submit1 =  wait(browser,10).until(EC.element_to_be_clickable((By.NAME,'lstSemester'))).click
     click_smster1 =  Select(wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'.table-form > tbody > tr > td > select'))))
@@ -50,9 +50,10 @@ def cek_ip():
     print("[*] Check another Semester? (y/t)")
     pilih = input("[*] Masukin pilihan: ")
     if pilih == "y" or pilih == "Y":
+        system('clear')
         cek_ip()
     else:
-        print("Bye!")
+        print("[*] Bye!")
 
 def get_captcha_text(location, size):
     global extract
@@ -87,15 +88,15 @@ def Login():
     global size
     global username
     element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#loginWrapper > #loginBox > #loginBox-body > #form-login > img')))
-    print("[*] Success Open URL")
+    print("[*] Success Open ", url)
     location = element.location
     size = element.size
     png = browser.get_screenshot_as_png() 
     username = wait(browser,20).until(EC.presence_of_element_located((By.ID, "username")))
     username.clear()
     print("[*] Trying to Fill Username")
-    usernames = "YOUR NIM"
-    passwords = "YOUR PASSWORD"
+    usernames = "1807125083"
+    passwords = "23042015ok"
     username.send_keys(usernames)
     password = wait(browser,20).until(EC.presence_of_element_located((By.ID,"password")))
     password.clear()
@@ -110,15 +111,13 @@ def Login():
     print("[*] Trying to Login")
     login = wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#loginWrapper > #loginBox > #loginBox-body > #form-login > .button'))).click()
     try :
-        login = wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#loginBox > #loginBox-body > #login-box-info > a > b'))).click
-        ulang = input("[*] Login Failed")
-        
-        
-    except:
-        print("[*] Login Succes")
         userinfo_element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#main-content > #content > #front-content-full > .front-content-full-left > h4')))
         user_info = userinfo_element.text
         print("[*]", user_info)
+        print("[*] Login Succes")
         cek_ip()
+                
+    except:
+        print("[*] Login Failed")
 
 Login()
