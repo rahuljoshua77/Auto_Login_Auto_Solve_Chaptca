@@ -109,16 +109,16 @@ def Login():
     captcha.send_keys(captcha_text)
     print("[*] Trying to Login")
     login = wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#loginWrapper > #loginBox > #loginBox-body > #form-login > .button'))).click()
-
-    nim_checking = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#page > #main-content > #sidebar > #user-info > h4:nth-child(4)')))
-    nim = nim_checking.text
-    if nim == usernames:
+    try :
+        login = wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#loginBox > #loginBox-body > #login-box-info > a > b'))).click
+        ulang = input("[*] Login Failed")
+        
+        
+    except:
         print("[*] Login Succes")
         userinfo_element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#main-content > #content > #front-content-full > .front-content-full-left > h4')))
         user_info = userinfo_element.text
         print("[*]", user_info)
         cek_ip()
-    else:
-        print("Login Gagal")
 
 Login()
