@@ -51,7 +51,7 @@ def cek_ip():
         if pilih == "y" or pilih == "Y":
             system('clear')
             cek_ip()
-        else:
+        else: 
             print("[*] Bye!")
     elif pilihan == "x" or pilihan == "X":
         element = wait(browser,20).until(EC.presence_of_element_located((By.XPATH,'//*[@id="content"]/form[1]/table/tbody/tr/td[1]/select')))
