@@ -26,35 +26,58 @@ import requests
 
 def cek_ip():
     click_submit12 =  wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#sidebar > #navigation > ul > li:nth-child(12) > a'))).send_keys(Keys.ENTER)
-    print("[*] Menu Cek IP Semester")
-    print("[*] 1. Ganjil 2018/2019")
-    print("[*] 2. Genap 2018/2019")
-    print("[*] 3. Ganjil 2019/2020")
-    print("[*] 4. Genap 2020/2021")
-    print("[*] 5. Ganjil 2020/2021")
-    print("[*] 6. Genap 2021/2022")
-    pilihan = int(input("[*] Masukin pilihan (1-6): "))
+    print("[*] ======================")
+    print("[*] Menu Check IP Semester")
+    print("[*] Type X for Check whole IP Semester")
+    print("[*] Type semester (1-6)")
+    pilihan = input("Enter your choice: ")
     print("[*] Trying to Get  your IP")
     #click_submit1 =  wait(browser,10).until(EC.element_to_be_clickable((By.NAME,'lstSemester'))).click
     click_smster1 =  Select(wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'.table-form > tbody > tr > td > select'))))
-    #print("Trying to Select")
-    index = pilihan - 1 
-    click_smster1.select_by_index(index)
-    #print("Trying to Submit")
-    click_submit =  wait(browser,10).until(EC.element_to_be_clickable((By.CLASS_NAME,'input-disclaimer'))).send_keys(Keys.ENTER)
+    if pilihan == "1" or pilihan == "2" or pilihan == "3" or pilihan == "4" or pilihan == "5": 
+        #print("Trying to Select")
+        index = int(pilihan) - 1 
+        click_smster1.select_by_index(index)
+    
+        #print("Trying to Submit")
+        click_submit =  wait(browser,10).until(EC.element_to_be_clickable((By.CLASS_NAME,'input-disclaimer'))).send_keys(Keys.ENTER)
 
-    ip_element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#content > table:nth-child(10) > tbody > tr:nth-child(3) > td:nth-child(2)')))
-    #print("Trying to Extract IPK")
-    ip_hasil = ip_element.text
-    print("[*] IP Semester Anda", ip_hasil)
-    print("[*] Check another Semester? (y/t)")
-    pilih = input("[*] Masukin pilihan: ")
-    if pilih == "y" or pilih == "Y":
-        system('clear')
-        cek_ip()
-    else:
-        print("[*] Bye!")
+        ip_element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#content > table:nth-child(10) > tbody > tr:nth-child(3) > td:nth-child(2)')))
+        #print("Trying to Extract IPK")
+        ip_hasil = ip_element.text
+        print("[*] IP Semester Anda", ip_hasil)
+        print("[*] Check another Semester? (y/t)")
+        pilih = input("[*] Masukin pilihan: ")
+        if pilih == "y" or pilih == "Y":
+            system('clear')
+            cek_ip()
+        else:
+            print("[*] Bye!")
+    elif pilihan == "x" or pilihan == "X":
+        element = wait(browser,20).until(EC.presence_of_element_located((By.XPATH,'//*[@id="content"]/form[1]/table/tbody/tr/td[1]/select')))
+        all_options =element.find_elements_by_tag_name("option")
+        dot = '.'
+        collect_ip = []
+        jumlah = 0
+        for i in range(0, len(all_options)-1):
+            click_smster1 =  Select(wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'.table-form > tbody > tr > td > select'))))
+            click_smster1.select_by_index(i)
+            click_submit =  wait(browser,10).until(EC.element_to_be_clickable((By.CLASS_NAME,'input-disclaimer'))).send_keys(Keys.ENTER)
+            ip_element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#content > table:nth-child(10) > tbody > tr:nth-child(3) > td:nth-child(2)')))
+            #print("Trying to Extract IPK")
+            ip_hasil = ip_element.text
+            total = re.findall(r'[0-9]+', ip_hasil)
+            join = total[0] + dot + total[1]
+            collect_ip.append(join)
+            print(f"[*] IP Semester {i+1}: {join}")
 
+        for x in collect_ip:
+            jumlah = jumlah + float(x)
+
+        jumlah_index = len(all_options) - 1
+        your_ipk = jumlah/jumlah_index
+        formatted_float = "{:.2f}".format(your_ipk)
+        print("[*] IP Kumulatif:", formatted_float)
 def get_captcha_text(location, size):
     global extract
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -95,8 +118,8 @@ def Login():
     username = wait(browser,20).until(EC.presence_of_element_located((By.ID, "username")))
     username.clear()
     print("[*] Trying to Fill Username")
-    usernames = "1807125083"
-    passwords = "23042015ok"
+    usernames = "INPUT YOUR NIM"
+    passwords = "INPUT YOUR PASSWORD"
     username.send_keys(usernames)
     password = wait(browser,20).until(EC.presence_of_element_located((By.ID,"password")))
     password.clear()
@@ -109,15 +132,13 @@ def Login():
     print("[*] Captcha Solved: ", captcha_text)
     captcha.send_keys(captcha_text)
     print("[*] Trying to Login")
-    login = wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#loginWrapper > #loginBox > #loginBox-body > #form-login > .button'))).click()
-    try :
+    try: 
+        login = wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#loginWrapper > #loginBox > #loginBox-body > #form-login > .button'))).click()
         userinfo_element = wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#main-content > #content > #front-content-full > .front-content-full-left > h4')))
         user_info = userinfo_element.text
         print("[*]", user_info)
         print("[*] Login Succes")
         cek_ip()
-                
     except:
-        print("[*] Login Failed")
-
+        print("An Error Occured!")        
 Login()
