@@ -27,11 +27,12 @@ import requests
 def cek_ip():
     click_submit12 =  wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#sidebar > #navigation > ul > li:nth-child(12) > a'))).send_keys(Keys.ENTER)
     print("[*] Menu Cek IP Semester")
-    print("[*] 1. Genap 2018/2019")
-    print("[*] 2. Ganjil 2018/2019")
-    print("[*] 3. Genap 2019/2020")
-    print("[*] 4. Ganjil 2020/2021")
-    print("[*] 5. Genap 2021/2021 (belum tersedia)")
+    print("[*] 1. Ganjil 2018/2019")
+    print("[*] 2. Genap 2018/2019")
+    print("[*] 3. Ganjil 2019/2020")
+    print("[*] 4. Genap 2020/2021")
+    print("[*] 5. Ganjil 2020/2021")
+    print("[*] 6. Genap 2021/2022")
     pilihan = int(input("[*] Masukin pilihan: "))
     print("[*] Trying to Get  your IP")
     #click_submit1 =  wait(browser,10).until(EC.element_to_be_clickable((By.NAME,'lstSemester'))).click
