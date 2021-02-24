@@ -47,7 +47,7 @@ def cek_ip():
         ip_hasil = ip_element.text
         print("[*] IP Semester Anda", ip_hasil)
         print("[*] Check another Semester? (y/t)")
-        pilih = input("[*] Masukin pilihan: ")
+        pilih = input("[*] Enter your choice: ")
         if pilih == "y" or pilih == "Y":
             system('clear')
             cek_ip()
