@@ -26,11 +26,11 @@ import requests
 
 def cek_ip():
     click_submit12 =  wait(browser,10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#sidebar > #navigation > ul > li:nth-child(12) > a'))).send_keys(Keys.ENTER)
-    print("[*] ======================")
+    print("\n[*]================================")
     print("[*] Menu Check IP Semester")
     print("[*] Type X for Check whole IP Semester")
     print("[*] Type semester (1-6)")
-    pilihan = input("Enter your choice: ")
+    pilihan = input("[*] Enter your choice: ")
     print("[*] Trying to Get  your IP")
     #click_submit1 =  wait(browser,10).until(EC.element_to_be_clickable((By.NAME,'lstSemester'))).click
     click_smster1 =  Select(wait(browser,20).until(EC.presence_of_element_located((By.CSS_SELECTOR,'.table-form > tbody > tr > td > select'))))
@@ -118,8 +118,8 @@ def Login():
     username = wait(browser,20).until(EC.presence_of_element_located((By.ID, "username")))
     username.clear()
     print("[*] Trying to Fill Username")
-    usernames = "INPUT YOUR NIM"
-    passwords = "INPUT YOUR PASSWORD"
+    usernames = "NIM"
+    passwords = "PASSWORD"
     username.send_keys(usernames)
     password = wait(browser,20).until(EC.presence_of_element_located((By.ID,"password")))
     password.clear()
